@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Engineering Physics Syllabus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .selected-chapter {
+      border: 2px solid #4f46e5;
+      box-shadow: 0 0 0 2px #a5b4fc;
+      border-radius: 0.375rem;
+    }
+
+    #aiChatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 12px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    #aiChatButton:hover {
+      background: #4338ca;
+    }
+
+    #chatBox {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    #chatMessages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+
+    #chatInputArea {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #chatInput {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    #chatSendBtn {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 0 15px;
+      cursor: pointer;
+    }
+
+    #chatSendBtn:disabled {
+      background: #a5b4fc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-5xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-center text-indigo-700 mb-4">Engineering Physics – SH 402</h1>
+    <p class="text-center text-gray-600 mb-2">Total Duration: <strong>60 hours</strong> | Year: 1, Part: 1</p>
+
+    <!-- Notes Section -->
+    <div class="bg-white rounded-xl shadow p-4 mb-6">
+      <label for="notes" class="block text-lg font-medium text-gray-700 mb-2">📘 Notes:</label>
+      <div id="notes" class="w-full p-3 border rounded-lg bg-gray-50 border-gray-300 min-h-[60px] text-gray-800">
+        <a href="https://drive.google.com/drive/folders/18gVgLA7y7qTvZZcbvSCb6IWfUYIXlPas?usp=drive_link" 
+           target="_blank" class="text-indigo-600 font-semibold hover:underline">
+          📂 View Notes here
+        </a>
+      </div>
+    </div>
+
+    <!-- Past Papers Section -->
+    <div class="bg-white rounded-xl shadow p-4 mb-8">
+      <label class="block text-lg font-medium text-gray-700 mb-2">📄 Past Papers:</label>
+      <div class="p-3 bg-gray-50 rounded-lg text-gray-800">
+        <a href="https://drive.google.com/file/d/1n_jD4QhZKFcpAUCrsMpD_0K1WoMTvyfJ/view?usp=sharing"
+           target="_blank" class="text-indigo-600 font-semibold hover:underline">
+          🔗 Click here to view the Past Paper (Google Drive)
+        </a>
+      </div>
+    </div>
+
+    <!-- Take Quiz Button -->
+    <div class="flex justify-center mb-6">
+      <button onclick="goToQuizPage()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out">
+        📝 Take a Quiz
+      </button>
+    </div>
+
+    <!-- Chapter Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Example chapters -->
+      <div onclick="selectChapter(this)" class="chapter-card bg-white p-6 rounded-xl shadow cursor-pointer hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold text-gray-800">1. Oscillation <span class="text-sm text-gray-500">(10 marks)</span></h2>
+        <p class="text-gray-600">⏱ 7 hours</p>
+        <p class="text-green-600 font-medium">🟢 Beginner</p>
+      </div>
+      <!-- Add other chapters similarly -->
+    </div>
+  </div>
+
+  <!-- Ask AI Chat Button -->
+  <button id="aiChatButton" aria-label="Toggle AI Chat">💬 Ask AI</button>
+
+  <!-- Chat Box -->
+  <div id="chatBox">
+    <div id="chatMessages">
+      <div><strong>AI:</strong> Hello! Ask me anything about Engineering Syllabus.</div>
+    </div>
+    <div id="chatInputArea">
+      <input id="chatInput" type="text" placeholder="Type your question...">
+      <button id="chatSendBtn" disabled>Send</button>
+    </div>
+  </div>
+
+  <script>
+    function selectChapter(element) {
+      document.querySelectorAll('.chapter-card').forEach(card => {
+        card.classList.remove('selected-chapter');
+      });
+      element.classList.add('selected-chapter');
+    }
+
+    function goToQuizPage() {
+      window.location.href = '/quiz';
+    }
+
+    const aiChatButton = document.getElementById('aiChatButton');
+    const chatBox = document.getElementById('chatBox');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const chatMessages = document.getElementById('chatMessages');
+
+    aiChatButton.addEventListener('click', () => {
+      if (chatBox.style.display === "none" || chatBox.style.display === "") {
+        chatBox.style.display = "flex";
+        aiChatButton.textContent = '✕ Close AI';
+      } else {
+        chatBox.style.display = "none";
+        aiChatButton.textContent = '💬 Ask AI';
+      }
+    });
+
+    chatInput.addEventListener('input', () => {
+      chatSendBtn.disabled = chatInput.value.trim() === "";
+    });
+
+    chatSendBtn.addEventListener('click', async () => {
+      const question = chatInput.value.trim();
+      if (!question) return;
+
+      // Display user's message
+      const userMsg = document.createElement('div');
+      userMsg.innerHTML = `<div><strong>You:</strong> ${question}</div>`;
+      chatMessages.appendChild(userMsg);
+
+      chatInput.value = '';
+      chatSendBtn.disabled = true;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Loading message
+      const loadingMsg = document.createElement('div');
+      loadingMsg.innerHTML = `<div><em>AI is typing...</em></div>`;
+      chatMessages.appendChild(loadingMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await res.json();
+        loadingMsg.remove();
+
+        const aiMsg = document.createElement('div');
+        if (data.answer) {
+          aiMsg.innerHTML = `<div><strong>AI:</strong> ${data.answer}</div>`;
+        } else {
+          aiMsg.innerHTML = `<div><strong>Error:</strong> ${data.error || 'Unknown error'}</div>`;
+        }
+        chatMessages.appendChild(aiMsg);
+
+      } catch (error) {
+        loadingMsg.remove();
+        const errorMsg = document.createElement('div');
+        errorMsg.innerHTML = `<div><strong>Error:</strong> ${error.message}</div>`;
+        chatMessages.appendChild(errorMsg);
+      }
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Semesters</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 32px;
+    }
+
+    .sem-container {
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 per row */
+      gap: 30px;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+
+    .sem-card {
+      background: white;
+      padding: 40px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .sem-card:hover {
+      background: #e6f7ff;
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 768px) {
+      .sem-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sem-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="courseTitle">Choose a Semester</h1>
+
+  <div class="sem-container" id="semContainer"></div>
+
+  <script>
+    const course = localStorage.getItem("selectedCourse") || "Electronics Engineering";
+    document.getElementById("courseTitle").innerText = `${course} - Semesters`;
+
+    const semesters = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+    const semContainer = document.getElementById("semContainer");
+
+    semesters.forEach(sem => {
+      const card = document.createElement("div");
+      card.className = "sem-card";
+      card.innerText = `Semester ${sem}`;
+      card.onclick = () => {
+        localStorage.setItem("selectedSemester", sem);
+        window.location.href = "/subject";
+      };
+      semContainer.appendChild(card);
+    });
+  </script>
+</body>
+</html>

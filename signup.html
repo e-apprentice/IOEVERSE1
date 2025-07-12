@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e6f0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-box {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    .signup-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1a4ed8;
+      margin-bottom: 1.5rem;
+    }
+    .input-group {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.6rem;
+      background-color: #1a4ed8;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .login {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .login a {
+      color: #1a4ed8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form class="signup-box" id="signupForm">
+    <div class="signup-title">Sign Up</div>
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" name="email" id="email" placeholder="you@example.com" required />
+    </div>
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" name="password" id="password" placeholder="••••••••" required />
+    </div>
+    <button type="submit">Sign Up</button>
+    <div class="login">
+      Already have an account? <a href="/">Log In</a>
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById('signupForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        const res = await fetch('http://localhost:5000/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          alert('Registration successful! Please log in.');
+          window.location.href = '/quiz';
+        } else {
+          alert('Sign up failed: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Error connecting to server: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

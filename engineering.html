@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Course</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      text-align: center;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .title { font-weight: bold; font-size: 20px; color: #2c3e50; }
+    .logout { color: red; cursor: pointer; }
+
+    h1 { margin-top: 30px; }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .course-card {
+      background: white;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+      min-width: 200px;
+    }
+    .course-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">IOE</div>
+    <div class="logout">Log Out</div>
+  </header>
+
+  <h1>Choose Your Engineering Course</h1>
+  <p>Select a course to explore semesters and subjects.</p>
+
+  <div class="container">
+    <div class="course-card" style="color: goldenrod;" onclick="goToSemester('Electronics Engineering')">Electronics Engineering</div>
+    <div class="course-card" style="color: royalblue;" onclick="goToSemester('Civil Engineering')">Civil Engineering</div>
+    <div class="course-card" style="color: green;" onclick="goToSemester('Electrical Engineering')">Electrical Engineering</div>
+    <div class="course-card" style="color: purple;" onclick="goToSemester('Computer Engineering')">Computer Engineering</div>
+    <div class="course-card" style="color: deeppink;" onclick="goToSemester('Mechanical Engineering')">Mechanical Engineering</div>
+    <div class="course-card" style="color: navy;" onclick="goToSemester('Automobile Engineering')">Automobile Engineering</div>
+    <div class="course-card" style="color: red;" onclick="goToSemester('Geomatics Engineering')">Geomatics Engineering</div>
+    <div class="course-card" style="color: seagreen;" onclick="goToSemester('Industrial Engineering')">Industrial Engineering</div>
+    <div class="course-card" style="color: cornflowerblue;" onclick="goToSemester('Agriculture Engineering')">Agriculture Engineering</div>
+    <div class="course-card" style="color: darkorange;" onclick="goToSemester('Architecture')">Architecture</div>
+    <div class="course-card" style="color: navy;" onclick="goToSemester('Aerospace Engineering')">Aerospace Engineering</div>
+    <div class="course-card" style="color: limegreen;" onclick="goToSemester('Chemical Engineering')">Chemical Engineering</div>
+  </div>
+
+  <script>
+    function goToSemester(courseName) {
+      localStorage.setItem("selectedCourse", courseName);
+      window.location.href = "/semester";
+    }
+  </script>
+</body>
+</html>

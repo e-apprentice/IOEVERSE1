@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1st Semester Subjects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f6ff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2b3a55;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p.subtext {
+      color: #444;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .subject-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      text-align: left;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-5px);
+      background-color: #eaf0ff;
+    }
+
+    .subject-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .desc {
+      color: #444;
+      font-size: 14px;
+    }
+
+    .blue { color: #0055cc; }
+    .purple { color: #5e35b1; }
+    .green { color: #2e7d32; }
+    .red { color: #d32f2f; }
+    .orange { color: #ef6c00; }
+
+    .back-link {
+      margin: 10px 0 0 20px;
+      display: inline-block;
+      color: #2b3a55;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <a href="semester.html" class="back-link">← Back to Semesters</a>
+
+  <div class="container">
+    <h1>1st Semester Subjects</h1>
+    <p class="subtext">Choose a subject below to start learning.</p>
+
+    <div class="subjects-grid">
+      <div class="subject-card" onclick="goToSubject('Physics')">
+        <div class="subject-title blue">Physics</div>
+        <div class="desc">Basic principles of mechanics, waves, and thermodynamics.</div>
+      </div>
+      <div class="subject-card" onclick="goToSubject('Engineering Drawing')">
+        <div class="subject-title purple">Engineering Drawing</div>
+        <div class="desc">Introduction to technical drawing and basic drafting skills.</div>
+      </div>
+      <div class="subject-card" onclick="goToSubject('C Programming')">
+        <div class="subject-title green">C Programming</div>
+        <div class="desc">Learn C language syntax, data types, and program structure.</div>
+      </div>
+      <div class="subject-card" onclick="goToSubject('Basic Electrical Engineering')">
+        <div class="subject-title red">Basic Electrical Engineering</div>
+        <div class="desc">Fundamentals of electricity, circuits, and electrical devices.</div>
+      </div>
+      <div class="subject-card" onclick="goToSubject('Mathematics I')">
+        <div class="subject-title purple">Mathematics I</div>
+        <div class="desc">Fundamental mathematical concepts used in engineering.</div>
+      </div>
+      <div class="subject-card" onclick="goToSubject('Digital Logic')">
+        <div class="subject-title orange">Digital Logic</div>
+        <div class="desc">Understand logic gates, Boolean algebra, and digital circuits.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToSubject(subject) {
+      localStorage.setItem("selectedSubject", subject);
+      window.location.href = "/physics";
+    }
+  </script>
+</body>
+</html>
